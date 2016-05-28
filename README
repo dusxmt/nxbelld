@@ -1,0 +1,64 @@
+Summary:
+
+    nxbelld is a tiny utility to aid people who either don't like the default
+    PC speaker beep, or use a sound driver that doesn't have support for the
+    PC speaker (e.g. the AD1981 chipset in the snd_hda_intel ALSA driver,
+    as of 2008-04-06).
+
+    nxbelld performs a given action every time the X bell is rung. The actions
+    nxbelld can currently perform include running a specified program, emulating
+    the PC speaker beep using your sound card (default), or playing a PCM
+    encoded WAVE file.
+
+    The actions involving the sound card are only available if nxbelld is
+    compiled with sound support, which requires a supported sound API.
+
+    Currently, the following sound APIs are supported:
+
+        ALSA    (default on most Linux distributions)
+        OSS     (default on several BSD systems, including FreeBSD)
+        soundio (default on OpenBSD)
+
+    To convert your favorite sound files to a PCM encoded WAVE file, use:
+
+        ffmpeg -i <file> -vn -acodec pcm_s16le out.wav
+
+    nxbelld can also throttle the bell if it is rung too often (e.g. some
+    terminal program goes crazy), and/or disable the system's audible bell (so
+    that you don't get the annoying PC speaker beep in addition to your
+    nxbelld action). 
+
+
+Compiling and installing:
+
+    For generic installation instructions, see the INSTALL file.
+
+    In case you've gotten nxbelld from a git repository, in order to generate
+    the missing build system files, run:  autoreconf -vfi
+
+
+Dependencies:
+
+    Required for compiling:
+        pkg-config >= 0.9.0
+        X11
+
+    At least one of the following APIs is recommended to be present:
+        ALSA
+        OSS
+        soundio
+
+    Required for bootstrapping from git:
+        autoconf   >= 2.69
+        automake   >= 1.11.6
+
+    Required for "make dist" from a git tree:
+        perl
+
+
+Notes:
+
+    When using soundio, the beeps are slightly shorter than the specified beep
+    duration. Beeps of 120ms or shorter don't get played at all. This can be
+    worked around simply by specifying a longer duration using the --duration
+    option.

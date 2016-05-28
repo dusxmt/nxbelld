@@ -1,0 +1,30 @@
+nxbelld 0.1:
+
+    Released on May 28th, 2016, this is the first release of nxbelld, a heavily
+    modified version of Gautam Iyer's xbelld.
+
+    The following are the most significant changes since xbelld 0.3.4:
+
+        - The name was changed to nxbelld, and the version was lowered down
+          to 0.1
+
+        - The code was re-structured, an autotools-based build system was
+          adapted, the gnulib compatibility library was utilized.
+
+        - Support for the OSS and soundio sound APIs was added. This means that
+          nxbelld shouhd work on several BSD systems, including FreeBSD and
+          OpenBSD (those two I've tested). The sound API to be used is selected
+          by the configure script at compile time.
+
+        - Argument handling is now done by GNU argp. Long options were added.
+
+        - The option of generating a square-wave beep was added.
+
+        - Beeps are now generated at program initialization, instead of each
+          time it is to be played.
+
+        - The WAVE file header is now parsed at program initialization, instead
+          of each time it is to be played.
+
+        - WAVE files may now contain additional header chunks. They are
+          currently simply ignored though.

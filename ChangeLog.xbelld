@@ -1,0 +1,225 @@
+2013-05-31  GI <gi1242+xbelld@gmail.com>
+
+	* .gitignore, Makefile, xbelld.c: Print version with -h, etc.
+
+2013-05-31  GI <gi1242+xbelld@gmail.com>
+
+	* .gitignore: Switched to git. Added gitignore.
+
+2013-05-31  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* README, xbelld.1, xbelld.c: Closed issue 1 (Patch by dmf). Changed
+	latency to 0.5s.  Also added units and fixed max volume, and my email.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@45
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2010-01-11  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile, xbelld.c: Version bump. Fix compile warnings.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@44
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-08-27  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c, xbelld.h: Fixes for big endian / pdp endian machine.
+	(Patch by Solra Bizna).  git-svn-id: https://xbelld.googlecode.com/svn/trunk@42
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-08-25  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile, xbelld.c: Version bump to 0.3.3, and changed 'char' to
+	'int' for the return value of getopt(). (Thanks to Solra Bizna for
+	pointing this out).  git-svn-id: https://xbelld.googlecode.com/svn/trunk@41
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-19  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Upgrading to alsa-lib-1.0.16 caused short wave files to
+	not be heard. It's fixed when the latency is set to 0.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@39
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-15  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Used 16 bit samples to play PC speaker beep. (When
+	turning up the PCM volume, the beep gets distorted. I thought this
+	was because I used 8 bit samples. Sadly using 16 bit samples doesn't
+	make a difference...) git-svn-id: https://xbelld.googlecode.com/svn/trunk@38
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-15  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile, xbelld.c: Made frequency a float (so if you care you can
+	exactly match your bell note to a tuning fork). Also made the PC
+	speaker beep slightly more accurate.  Required the use of strtof(), so I had to add -std=gnu99 to CFLAGS.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@37
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-15  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile: Version bump to 0.3.2 git-svn-id: https://xbelld.googlecode.com/svn/trunk@36
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-15  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.1, xbelld.c: Read default values of bell parameters from
+	the server. (The old behaviour was to use program specified
+	defaults, and use the servers default only if the user specified
+	nothing).  git-svn-id: https://xbelld.googlecode.com/svn/trunk@35
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-15  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Reduce latency to 0. After upgrading to alsa-lib-1.0.16,
+	I found that short beeps were not heard on my system.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@34
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-13  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Set default freq/duration to defautls from server git-svn-id: https://xbelld.googlecode.com/svn/trunk@32
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-13  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.1, xbelld.c: Added -T option to test the bell on startup.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@31
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-13  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.1, xbelld.c: Added patch from Stefan Bellon to read the
+	default bell parameters from the X server if they're not specified.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@30
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-13  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile: Version bump to 0.3.1 git-svn-id: https://xbelld.googlecode.com/svn/trunk@29
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-13  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* README, features.mk, xbelld.c: Made wave file support optional.
+	(Saves 4k).  git-svn-id: https://xbelld.googlecode.com/svn/trunk@28
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-13  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile: Added a separate rule for the changelog git-svn-id: https://xbelld.googlecode.com/svn/trunk@26
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-13  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Made default volume within range git-svn-id: https://xbelld.googlecode.com/svn/trunk@25
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-13  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Set defaults to my preferences git-svn-id: https://xbelld.googlecode.com/svn/trunk@24
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-13  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.1, xbelld.c: Added option to play bell of given pitch,
+	duration, volume directly.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@23
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-12  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile: 1. Set svn:ignore to ignore tags / etc.  2. Added ChangeLog using svn2cl.  3. Version bump to 0.3 git-svn-id: https://xbelld.googlecode.com/svn/trunk@22
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-12  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.1, xbelld.c: Added documentation for -c option git-svn-id: https://xbelld.googlecode.com/svn/trunk@20
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-12  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Close alsa handle on error git-svn-id: https://xbelld.googlecode.com/svn/trunk@19
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-12  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile: Version bump to 0.2 git-svn-id: https://xbelld.googlecode.com/svn/trunk@18
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-12  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Added -c option to cache the audio file git-svn-id: https://xbelld.googlecode.com/svn/trunk@17
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-12  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Renamed variables git-svn-id: https://xbelld.googlecode.com/svn/trunk@16
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-12  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.1, xbelld.c: Removed -F, -c and -r options. Reading format,
+	rate and channels from the wave header is much better.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@15
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-08  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.1: Removed empty line in man page git-svn-id: https://xbelld.googlecode.com/svn/trunk@14
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-08  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile, README, features.mk, xbelld.1: Wrote man page, and
+	install notes.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@12
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-07  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile, features.mk: Moved user definable features to
+	features.mk git-svn-id: https://xbelld.googlecode.com/svn/trunk@11
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-07  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile, xbelld.c: Compile fixes for WITHOUT_ALSA=1, and makefile
+	fixes to check dependencies git-svn-id: https://xbelld.googlecode.com/svn/trunk@10
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-07  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Made alsa support optional (untested) git-svn-id: https://xbelld.googlecode.com/svn/trunk@9
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-07  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile, xbelld.h: Made alsa support optional git-svn-id: https://xbelld.googlecode.com/svn/trunk@8
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-07  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c, xbelld.h: Changed meaning of -t option git-svn-id: https://xbelld.googlecode.com/svn/trunk@7
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-07  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Added -t option to throttle too frequent bells git-svn-id: https://xbelld.googlecode.com/svn/trunk@6
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-07  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Added -D option to NOT disable the audio bell on startup git-svn-id: https://xbelld.googlecode.com/svn/trunk@5
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-07  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* xbelld.c: Added -h option git-svn-id: https://xbelld.googlecode.com/svn/trunk@4
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-07  gi1242 <gi1242@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile, xbelld.c: Added -e option to exec programs when the bell
+	is rung.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@3
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-06  gi1242@stanford.edu <gi1242@stanford.edu@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Makefile, xbelld.c, xbelld.h: Initial import git-svn-id: https://xbelld.googlecode.com/svn/trunk@2
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+
+2008-04-06  (no author) <(no author)@b13b4d04-3d4a-0410-9384-03320d9c2c6a>
+
+	* Initial directory structure.  git-svn-id: https://xbelld.googlecode.com/svn/trunk@1
+	b13b4d04-3d4a-0410-9384-03320d9c2c6a
+

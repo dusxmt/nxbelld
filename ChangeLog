@@ -1,0 +1,2 @@
+Typically, a ChangeLog is generated at "make dist" time and is available in
+source tarballs.

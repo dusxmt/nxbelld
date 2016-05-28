@@ -1,0 +1,51 @@
+# Ignore built stuff.
+*.o
+*.a
+nxbelld
+.deps
+.libs
+
+# Ignore autotools-generated stuff.
+Makefile
+Makefile.in
+configure
+
+/build-aux/*
+/autom4te.cache
+/aclocal.m4
+/stamp-h1
+
+config.h
+config.h.in
+config.status
+config.cache
+config.log
+
+# Ignore emacs backups.
+*~
+
+# Ignore gnulib generated headers (from .in.h files).
+/gnulib/alloca.h
+/gnulib/arg-nonnull.h
+/gnulib/byteswap.h
+/gnulib/c++defs.h
+/gnulib/errno.h
+/gnulib/float.h
+/gnulib/getopt.h
+/gnulib/stdalign.h
+/gnulib/stddef.h
+/gnulib/stdio.h
+/gnulib/stdlib.h
+/gnulib/string.h
+/gnulib/strings.h
+/gnulib/sys
+/gnulib/unistd.h
+/gnulib/warn-on-use.h
+/gnulib/wchar.h
+
+# Keep .keep files, they make sure directories won't disappear.
+!.keep
+
+# Other exceptions.
+!/build-aux/gitlog-to-changelog*
+!/build-aux/snippet/*
