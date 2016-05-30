@@ -123,7 +123,7 @@ generate_complex_beep (unsigned int volume, unsigned int frequency,
   buffer = malloc (sizeof (playable_pcm_buffer_t));
   if (buffer == NULL)
     {
-      fprintf (stderr, "%s: generate_sine_beep (): Memory allocation "
+      fprintf (stderr, "%s: generate_complex_beep (): Memory allocation "
                        "failed: %s.\n",
                progname, strerror (errno));
 
