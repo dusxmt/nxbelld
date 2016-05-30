@@ -60,7 +60,7 @@ generate_sine_beep (unsigned int volume, unsigned int frequency,
   buffer->info.bits_per_sample   = 16;
 
   samples_count = (SAMPLE_RATE * duration) / 1000;
-  buffer->data_len =  samples_count * sizeof (int16_t);
+  buffer->data_len = samples_count * sizeof (int16_t);
 
   buffer->data = malloc (buffer->data_len);
   if (buffer->data == NULL)
@@ -85,6 +85,84 @@ generate_sine_beep (unsigned int volume, unsigned int frequency,
 
       samples[iter] = INT16_MAX
                       * sin (2 * M_PI * period_counter / period_length)
+                      * (volume / 100.0);
+    }
+
+  return buffer;
+}
+
+/**
+ * This is sin(x) + sin(3x)/sqrt(3) + ... + sin(9x)/sqrt(9).
+ *
+ * After a little experimentation, this seems to be a nice mellow beep with
+ * neither the piercing quality of a pure sine wave nor the loud harshness
+ * of a square wave.
+ */
+static double
+complex_wave (double param)
+{
+  return (sin (param)
+          + (sin (3 * param) * 0.192450089729875254836382926833)
+          + (sin (5 * param) * 0.089442719099991587856366946749)
+          + (sin (7 * param) * 0.053994924715603889602073790890)
+          + (sin (9 * param) * 0.037037037037037037037037037037));
+}
+
+playable_pcm_buffer_t *
+generate_complex_beep (unsigned int volume, unsigned int frequency,
+                       unsigned int duration)
+{
+  playable_pcm_buffer_t *buffer;
+  int16_t               *samples;
+  uint32_t               samples_count;
+  unsigned int           period_counter;
+  unsigned int           period_length;
+  unsigned int           iter;
+
+
+  buffer = malloc (sizeof (playable_pcm_buffer_t));
+  if (buffer == NULL)
+    {
+      fprintf (stderr, "%s: generate_sine_beep (): Memory allocation "
+                       "failed: %s.\n",
+               progname, strerror (errno));
+
+      return NULL;
+    }
+
+  buffer->info.native_endian     = true;
+  buffer->info.sign              = true;
+  buffer->info.sample_rate       = SAMPLE_RATE;
+  buffer->info.channels          = 1;
+  buffer->info.bytes_per_sample  = 2;
+  buffer->info.bits_per_sample   = 16;
+
+  samples_count = (SAMPLE_RATE * duration) / 1000;
+  buffer->data_len = samples_count * sizeof (int16_t);
+
+  buffer->data = malloc (buffer->data_len);
+  if (buffer->data == NULL)
+    {
+      fprintf (stderr, "%s: generate_complex_beep (): Failed to allocate a "
+                       "buffer for the PCM data: %s.\n",
+               progname, strerror (errno));
+
+      free (buffer);
+      return NULL;
+    }
+  samples = (int16_t *)(buffer->data);
+
+  period_length  = SAMPLE_RATE / frequency;
+  period_counter = period_length;
+  for (iter = 0; iter < samples_count; iter++)
+    {
+      if (period_counter == period_length)
+        period_counter = 0;
+      else
+        period_counter++;
+
+      samples[iter] = INT16_MAX
+                      * complex_wave (2 * M_PI * period_counter / period_length)
                       * (volume / 100.0);
     }
 

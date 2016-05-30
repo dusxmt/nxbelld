@@ -57,6 +57,10 @@ playable_pcm_buffer_t *generate_sine_beep (unsigned int volume,
                                            unsigned int frequency,
                                            unsigned int duration);
 
+playable_pcm_buffer_t *generate_complex_beep (unsigned int volume,
+                                              unsigned int frequency,
+                                              unsigned int duration);
+
 playable_pcm_buffer_t *generate_square_beep (unsigned int volume,
                                              unsigned int frequency,
                                              unsigned int duration);

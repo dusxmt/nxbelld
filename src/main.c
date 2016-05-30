@@ -53,8 +53,8 @@ static char doc[] = PACKAGE_STRING " -- the new X bell daemon.\v"
                     "running an external command.\n\n"
 
                     "The default mode is playing a generated sine wave beep, "
-                    "and can be changed by the --sine, --square, --wave-file "
-                    "and --command options.\n\n"
+                    "and can be changed by the --sine, --complex, --square, "
+                    "--wave-file and --command options.\n\n"
 
                     "The --volume, --frequency and --duration options only "
                     "apply to generated beeps, and are ignored by other modes.";
@@ -65,8 +65,8 @@ static char doc[] = PACKAGE_STRING " -- the new X bell daemon.\v"
                     "beeps, or beeping by running an external command.\n\n"
 
                     "The default mode is playing a generated sine wave beep, "
-                    "and can be changed by the --sine, --square and --command "
-                    "options.\n\n"
+                    "and can be changed by the --sine, --complex, --square and "
+                    "--command options.\n\n"
 
                     "The --volume, --frequency and --duration options only "
                     "apply to generated beeps, and are ignored by other modes.";
@@ -91,8 +91,10 @@ static struct argp_option options[] =
 
 #ifdef HAVE_SOUND
 
-  {"square",     'q', 0,      0,  "use a square wave beep for the bell" },
   {"sine",       'i', 0,      0,  "use a sine wave beep for the bell" },
+  {"complex",    'C', 0,      0,  "use a more complex waveform than a "
+                                  "pure sine wave for the bell" },
+  {"square",     'q', 0,      0,  "use a square wave beep for the bell" },
   {"duration",   'd', "DUR",  0,  "beep duration (ms)" },
   {"frequency",  'F', "FREQ", 0,  "beep frequency (hz)" },
   {"volume",     'v', "VOL",  0,  "beep volume (0 -- 100)" },
@@ -131,8 +133,9 @@ enum
 };
 enum
 {
-  SQUARE_WAVE_BEEP,
-  SINE_WAVE_BEEP
+  SINE_WAVE_BEEP,
+  COMPLEX_WAVE_BEEP,
+  SQUARE_WAVE_BEEP
 };
 typedef struct prog_args prog_args_t;
 
@@ -191,6 +194,10 @@ parse_option (int key, char *arg, struct argp_state *state)
       case 'i':
         args->op_mode       = GENERATED_BEEP_OP_MODE;
         args->gen_beep_type = SINE_WAVE_BEEP;
+        break;
+      case 'C':
+        args->op_mode       = GENERATED_BEEP_OP_MODE;
+        args->gen_beep_type = COMPLEX_WAVE_BEEP;
         break;
       case 'q':
         args->op_mode       = GENERATED_BEEP_OP_MODE;
@@ -281,6 +288,11 @@ beep_descriptor_t *prepare_beep (prog_args_t *args)
               beep->buffer = generate_sine_beep (args->gen_beep_vol,
                                                  args->gen_beep_freq,
                                                  args->gen_beep_dur);
+              break;
+            case COMPLEX_WAVE_BEEP:
+              beep->buffer = generate_complex_beep (args->gen_beep_vol,
+                                                    args->gen_beep_freq,
+                                                    args->gen_beep_dur);
               break;
             case SQUARE_WAVE_BEEP:
               beep->buffer = generate_square_beep (args->gen_beep_vol,
