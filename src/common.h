@@ -1,10 +1,7 @@
 /**
  *  nxbelld, a fork of xbelld, the bell daemon for computers w/o a PC speaker.
  *
- *  Copyright (C) 2008-2013 Gautam Iyer <gi1242+xbelld@NoSPAM.com>
  *  Copyright (C) 2016  Marek Benc <dusxmt@gmx.com>
- *
- *  Note: replace NoSPAM with gmail
  *
  *
  *  This program is free software: you can redistribute it and/or modify
