@@ -1,7 +1,7 @@
 dnl -- Process this file with autoconf to generate a `configure' script. --
 
 AC_PREREQ([2.69])
-AC_INIT([nxbelld], [0.1.1], [dusxmt@gmx.com])
+AC_INIT([nxbelld], [0.1.1-dev], [dusxmt@gmx.com])
 
 AC_CONFIG_SRCDIR([src/soundio.c])
 AC_CONFIG_AUX_DIR([build-aux])
