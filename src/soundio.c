@@ -47,13 +47,13 @@ play_pcm_buffer (playable_pcm_buffer_t *buffer)
 
   sio_initpar (&parameters);
 
-  parameters.bits     = buffer->info.bit_pspl;
-  parameters.bps      = buffer->info.byte_pspl;
-  parameters.sig      = buffer->info.sign ? 1 : 0;
-  parameters.le       = buffer->info.native_endian ? SIO_LE_NATIVE : 1;
-  parameters.pchan    = buffer->info.channels;
-  parameters.rate     = buffer->info.rate;
-  parameters.xrun     = SIO_IGNORE;
+  parameters.bits   = buffer->info.bits_per_sample;
+  parameters.bps    = buffer->info.bytes_per_sample;
+  parameters.sig    = buffer->info.sign ? 1 : 0;
+  parameters.le     = buffer->info.native_endian ? SIO_LE_NATIVE : 1;
+  parameters.pchan  = buffer->info.channels;
+  parameters.rate   = buffer->info.sample_rate;
+  parameters.xrun   = SIO_IGNORE;
 
   status = sio_setpar (handle, &parameters);
   if (!status)
@@ -75,10 +75,10 @@ play_pcm_buffer (playable_pcm_buffer_t *buffer)
       return false;
     }
 
-  if (parameters.bits     != buffer->info.bit_pspl
-      || parameters.bps   != buffer->info.byte_pspl
+  if (parameters.bits     != buffer->info.bits_per_sample
+      || parameters.bps   != buffer->info.bytes_per_sample
       || parameters.pchan != buffer->info.channels
-      || parameters.rate  != buffer->info.rate)
+      || parameters.rate  != buffer->info.sample_rate)
     {
       fprintf (stderr, "%s: Configuring the playback device for the given data failed.\n",
                progname);
@@ -153,13 +153,13 @@ play_pcm_file (playable_pcm_file_t *file)
 
   sio_initpar (&parameters);
 
-  parameters.bits     = file->info.bit_pspl;
-  parameters.bps      = file->info.byte_pspl;
-  parameters.sig      = file->info.sign ? 1 : 0;
-  parameters.le       = file->info.native_endian ? SIO_LE_NATIVE : 1;
-  parameters.pchan    = file->info.channels;
-  parameters.rate     = file->info.rate;
-  parameters.xrun     = SIO_IGNORE;
+  parameters.bits   = file->info.bits_per_sample;
+  parameters.bps    = file->info.bytes_per_sample;
+  parameters.sig    = file->info.sign ? 1 : 0;
+  parameters.le     = file->info.native_endian ? SIO_LE_NATIVE : 1;
+  parameters.pchan  = file->info.channels;
+  parameters.rate   = file->info.sample_rate;
+  parameters.xrun   = SIO_IGNORE;
 
   status = sio_setpar (handle, &parameters);
   if (!status)
@@ -181,10 +181,10 @@ play_pcm_file (playable_pcm_file_t *file)
       return false;
     }
 
-  if (parameters.bits     != file->info.bit_pspl
-      || parameters.bps   != file->info.byte_pspl
+  if (parameters.bits     != file->info.bits_per_sample
+      || parameters.bps   != file->info.bytes_per_sample
       || parameters.pchan != file->info.channels
-      || parameters.rate  != file->info.rate)
+      || parameters.rate  != file->info.sample_rate)
     {
       fprintf (stderr, "%s: Configuring the playback device for `%s' failed.\n",
                progname, file->name);

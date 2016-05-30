@@ -52,12 +52,12 @@ generate_sine_beep (unsigned int volume, unsigned int frequency,
       return NULL;
     }
 
-  buffer->info.native_endian = true;
-  buffer->info.sign          = true;
-  buffer->info.rate          = SAMPLE_RATE;
-  buffer->info.channels      = 1;
-  buffer->info.byte_pspl     = 2;
-  buffer->info.bit_pspl      = 16;
+  buffer->info.native_endian     = true;
+  buffer->info.sign              = true;
+  buffer->info.sample_rate       = SAMPLE_RATE;
+  buffer->info.channels          = 1;
+  buffer->info.bytes_per_sample  = 2;
+  buffer->info.bits_per_sample   = 16;
 
   samples_count = (SAMPLE_RATE * duration) / 1000;
   buffer->data_len =  samples_count * sizeof (int16_t);
@@ -114,12 +114,12 @@ generate_square_beep (unsigned int volume, unsigned int frequency,
       return NULL;
     }
 
-  buffer->info.native_endian = true;
-  buffer->info.sign          = false; 
-  buffer->info.rate          = SAMPLE_RATE;
-  buffer->info.channels      = 1;
-  buffer->info.byte_pspl     = 1;
-  buffer->info.bit_pspl      = 8;
+  buffer->info.native_endian     = true;
+  buffer->info.sign              = false;
+  buffer->info.sample_rate       = SAMPLE_RATE;
+  buffer->info.channels          = 1;
+  buffer->info.bytes_per_sample  = 1;
+  buffer->info.bits_per_sample   = 8;
 
   samples_count = (SAMPLE_RATE * duration) / 1000;
   buffer->data_len =  samples_count * sizeof (uint8_t);

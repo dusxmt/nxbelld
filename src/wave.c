@@ -98,15 +98,15 @@ parse_wave_header (FILE *stream, pcm_data_info_t *info)
       return false;
     }
 
-  /* Swap some endian, if needed. Only swap fields we read. */
-  format.hdr.chunk_len = LE_INT   (format.hdr.chunk_len);
-  format.pcm_code      = LE_SHORT (format.pcm_code);
-  format.channels      = LE_SHORT (format.channels);
-  format.rate          = LE_INT   (format.rate);
-  format.bit_pspl      = LE_SHORT (format.bit_pspl);
+  /* Swap some endian, if needed. Only swap fields we make use of. */
+  format.hdr.chunk_len    = LE_INT   (format.hdr.chunk_len);
+  format.data_format      = LE_SHORT (format.data_format);
+  format.channels         = LE_SHORT (format.channels);
+  format.sample_rate      = LE_INT   (format.sample_rate);
+  format.bits_per_sample  = LE_SHORT (format.bits_per_sample);
 
   if (format.hdr.chunk_id != COMPOSE_ID ('f', 'm', 't', ' ')
-      || format.hdr.chunk_len != 0x10 || format.pcm_code != 0x01)
+      || format.hdr.chunk_len != 0x10 || format.data_format != 0x01)
     {
       fprintf (stderr,
                "%s: Unsupported WAVE format; Try encoding the file with:\n"
@@ -124,12 +124,12 @@ parse_wave_header (FILE *stream, pcm_data_info_t *info)
       return false;
     }
 
-  info->native_endian = false;
-  info->sign          = format.bit_pspl > 8;
-  info->rate          = format.rate;
-  info->channels      = format.channels;
-  info->bit_pspl      = format.bit_pspl;
-  info->byte_pspl     = ceil (format.bit_pspl / 8.0);
+  info->native_endian     = false;
+  info->sign              = (format.bits_per_sample > 8);
+  info->sample_rate       = format.sample_rate;
+  info->channels          = format.channels;
+  info->bits_per_sample   = format.bits_per_sample;
+  info->bytes_per_sample  = ceil (format.bits_per_sample / 8.0);
 
   return true;
 }

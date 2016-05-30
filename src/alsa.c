@@ -34,7 +34,7 @@ snd_pcm_format_t determine_pcm_format (pcm_data_info_t *info)
     {
       if (info->sign)
         {
-          switch (info->bit_pspl)
+          switch (info->bits_per_sample)
             {
               case 8:  return SND_PCM_FORMAT_S8;
               case 16: return SND_PCM_FORMAT_S16;
@@ -44,7 +44,7 @@ snd_pcm_format_t determine_pcm_format (pcm_data_info_t *info)
         }
       else
         {
-          switch (info->bit_pspl)
+          switch (info->bits_per_sample)
             {
               case 8:  return SND_PCM_FORMAT_U8;
               case 16: return SND_PCM_FORMAT_U16;
@@ -57,7 +57,7 @@ snd_pcm_format_t determine_pcm_format (pcm_data_info_t *info)
     {
       if (info->sign)
         {
-          switch (info->bit_pspl)
+          switch (info->bits_per_sample)
             {
               case 8:  return SND_PCM_FORMAT_S8;
               case 16: return SND_PCM_FORMAT_S16_LE;
@@ -67,7 +67,7 @@ snd_pcm_format_t determine_pcm_format (pcm_data_info_t *info)
         }
       else
         {
-          switch (info->bit_pspl)
+          switch (info->bits_per_sample)
             {
               case 8:  return SND_PCM_FORMAT_U8;
               case 16: return SND_PCM_FORMAT_U16_LE;
@@ -112,7 +112,7 @@ play_pcm_buffer (playable_pcm_buffer_t *buffer)
     }
 
   status = snd_pcm_set_params (handle, format, SND_PCM_ACCESS_RW_INTERLEAVED,
-                               buffer->info.channels, buffer->info.rate,
+                               buffer->info.channels, buffer->info.sample_rate,
                                1,          /* soft_resample */
                                0);         /* latency (us).*/
   if (status < 0)
@@ -202,7 +202,7 @@ play_pcm_file (playable_pcm_file_t *file)
     }
 
   status = snd_pcm_set_params (handle, format, SND_PCM_ACCESS_RW_INTERLEAVED,
-                               file->info.channels, file->info.rate,
+                               file->info.channels, file->info.sample_rate,
                                1,          /* soft_resample */
                                0);         /* latency (us).*/
   if (status < 0)

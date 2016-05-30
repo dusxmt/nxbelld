@@ -34,10 +34,11 @@ struct pcm_data_info
 {
   bool native_endian;
   bool sign;
-  int  rate;
-  int  channels;
-  int  byte_pspl;
-  int  bit_pspl;
+
+  unsigned int sample_rate;
+  unsigned int channels;
+  unsigned int bytes_per_sample;
+  unsigned int bits_per_sample;
 };
 
 struct playable_pcm_buffer

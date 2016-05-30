@@ -38,7 +38,7 @@ determine_pcm_format (pcm_data_info_t *info)
     {
       if (info->sign)
         {
-          switch (info->bit_pspl)
+          switch (info->bits_per_sample)
             {
               case 8:  return AFMT_S8;
               case 16: return AFMT_S16_NE;
@@ -48,7 +48,7 @@ determine_pcm_format (pcm_data_info_t *info)
         }
       else
         {
-          switch (info->bit_pspl)
+          switch (info->bits_per_sample)
             {
               case 8:  return AFMT_U8;
               case 16: return AFMT_U16_NE;
@@ -61,7 +61,7 @@ determine_pcm_format (pcm_data_info_t *info)
     {
       if (info->sign)
         {
-          switch (info->bit_pspl)
+          switch (info->bits_per_sample)
             {
               case 8:  return AFMT_S8;
               case 16: return AFMT_S16_LE;
@@ -71,7 +71,7 @@ determine_pcm_format (pcm_data_info_t *info)
         }
       else
         {
-          switch (info->bit_pspl)
+          switch (info->bits_per_sample)
             {
               case 8:  return AFMT_U8;
               case 16: return AFMT_U16_LE;
@@ -135,7 +135,7 @@ configure_oss_device (int device, pcm_data_info_t *info)
       return false;
     }
 
-  ioctl_ret = info->rate;
+  ioctl_ret = info->sample_rate;
   status = ioctl (device, SNDCTL_DSP_SPEED, &ioctl_ret);
   if (status == -1)
     {
@@ -144,7 +144,7 @@ configure_oss_device (int device, pcm_data_info_t *info)
 
       return false;
     }
-  if (ioctl_ret != info->rate)
+  if (ioctl_ret != info->sample_rate)
     {
       fprintf (stderr, "%s: Failed to set the playback device's sampling rate.\n",
                progname);

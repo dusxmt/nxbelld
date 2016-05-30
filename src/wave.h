@@ -72,12 +72,12 @@ struct wave_fmt_chunk
 {
   wave_chunk_hdr_t hdr;
 
-  uint16_t pcm_code;  /* Always 0x01 */
-  uint16_t channels;  /* Number of channels */
-  uint32_t rate;      /* Frequency of sample */
-  uint32_t byte_psec; /* Bytes per second */
-  uint16_t byte_pspl; /* sample size; 1 or 2 bytes */
-  uint16_t bit_pspl;  /* Bits per sample */
+  uint16_t data_format;      /* Always 0x01 - linear PCM. */
+  uint16_t channels;
+  uint32_t sample_rate;
+  uint32_t bytes_per_sec;
+  uint16_t sample_align;
+  uint16_t bits_per_sample;
 };
 
 playable_pcm_buffer_t *load_wave_file_into_buffer (const char *path);
