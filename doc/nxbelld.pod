@@ -47,7 +47,7 @@ OSS (default on several BSD systems, including FreeBSD)
 
 =item *
 
-soundio (default on OpenBSD)
+sndio (default on OpenBSD)
 
 =back
 
@@ -181,7 +181,7 @@ whitespace-separated words, it has to be quoted and properly escaped.
 
 =head1 BUGS
 
-When using soundio, the beeps are slightly shorter than the specified beep
+When using sndio, the beeps are slightly shorter than the specified beep
 duration.  Beeps of 120 ms or shorter don't get played at all.  This can be
 worked around simply by specifying a longer duration using the B<--duration>
 option.

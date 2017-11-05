@@ -17,7 +17,7 @@ Summary:
 
         ALSA    (default on most Linux distributions)
         OSS     (default on several BSD systems, including FreeBSD)
-        soundio (default on OpenBSD)
+        sndio   (default on OpenBSD)
 
     To convert your favorite sound files to a PCM encoded WAVE file, use:
 
@@ -46,7 +46,7 @@ Dependencies:
     At least one of the following APIs is recommended to be present:
         ALSA
         OSS
-        soundio
+        sndio
 
     Required for bootstrapping from git:
         autoconf   >= 2.69
@@ -58,7 +58,7 @@ Dependencies:
 
 Notes:
 
-    When using soundio, the beeps are slightly shorter than the specified beep
-    duration. Beeps of 120ms or shorter don't get played at all. This can be
+    When using sndio, the beeps are slightly shorter than the specified beep
+    duration.  Beeps of 120ms or shorter don't get played at all.  This can be
     worked around simply by specifying a longer duration using the --duration
     option.

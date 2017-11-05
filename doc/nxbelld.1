@@ -173,7 +173,7 @@ Currently, the following sound APIs are supported:
 .IP "\(bu" 4
 \&\s-1OSS \s0(default on several \s-1BSD\s0 systems, including FreeBSD)
 .IP "\(bu" 4
-soundio (default on OpenBSD)
+sndio (default on OpenBSD)
 .PP
 To convert your favorite sound files to a \s-1PCM\s0 encoded \s-1WAVE\s0 file, use:
 .PP
@@ -270,7 +270,7 @@ This means that if the external command consists of several
 whitespace-separated words, it has to be quoted and properly escaped.
 .SH "BUGS"
 .IX Header "BUGS"
-When using soundio, the beeps are slightly shorter than the specified beep
+When using sndio, the beeps are slightly shorter than the specified beep
 duration.  Beeps of 120 ms or shorter don't get played at all.  This can be
 worked around simply by specifying a longer duration using the \fB\-\-duration\fR
 option.
