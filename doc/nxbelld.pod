@@ -1,0 +1,199 @@
+=encoding utf8
+
+=head1 NAME
+
+B<nxbelld> - X daemon that performs an action every time the bell is rung
+
+=head1 SYNOPSIS
+
+=over
+
+=item S<B<nxbelld> [B<-bDTiCq>] [B<-t> I<delay>] [B<-F> I<freq>] [B<-v> I<vol>] [B<-d> I<duration>]>
+
+=item S<B<nxbelld> [B<-bDTc>] [B<-t> I<delay>] B<-f> I<file>>
+
+=item S<B<nxbelld> [B<-bDT>] [B<-t> I<delay>] B<-e> I<cmd>>
+
+=item S<B<nxbelld> B<-?>>
+
+=back
+
+=head1 DESCRIPTION
+
+B<nxbelld> is a tiny utility to aid people who either don't like the default
+PC speaker beep, or use a sound driver that doesn't have support for the
+PC speaker (e.g. the AD1981 chipset in the snd_hda_intel ALSA driver, as
+of 2008-04-06).
+
+B<nxbelld> performs a given action every time the X bell is rung.  The
+actions B<nxbelld> can currently perform include running a specified program,
+emulating the PC speaker beep using your sound card (default), or
+playing a PCM encoded WAVE file.
+
+The actions involving the sound card are only available if B<nxbelld> is
+compiled with sound support, which requires a supported sound API.
+
+Currently, the following sound APIs are supported:
+
+=over
+
+=item *
+
+ALSA (default on most Linux distributions)
+
+=item *
+
+OSS (default on several BSD systems, including FreeBSD)
+
+=item *
+
+soundio (default on OpenBSD)
+
+=back
+
+To convert your favorite sound files to a PCM encoded WAVE file, use:
+
+
+    ffmpeg -i <file> -vn -acodec pcm_s16le out.wav
+
+
+B<nxbelld> can also throttle the bell if it is rung too often (e.g. some
+terminal program goes crazy), and/or disable the system's audible bell
+(so that you don't get the annoying PC speaker beep in addition to your
+B<nxbelld> action).
+
+
+=head1 OPTIONS
+
+=head2 Common Options
+
+=over
+
+=item B<-b,> B<--background>
+
+Run B<nxbelld> in the background.
+
+=item B<-D,> B<--keep-abell>
+
+Don't disable the system audio bell on startup.  The default is to disable
+the audio bell; that way, if you have a working PC speaker, you won't hear
+two beeps.  You can always enable / disable the bell using xset(1).
+
+=item B<-t,> B<--throttle> I<interval>
+
+Interval (ms) during which subsequent bells are throttled.
+
+=item B<-T,> B<--test-bell>
+
+Ring a test bell on startup.  If you're experimenting with your PC speaker
+values, then you can try something like:
+
+    pkill nxbelld; nxbelld -TF1000 -v100 -d200 &
+
+and play with the numbers until you're satisfied with the sound.
+
+=item B<-?,> B<--help>
+
+Print the help screen and exit.
+
+=back
+
+=head2 Options to play an audio file
+
+=over
+
+=item B<-c,> B<--cache>
+
+Cache the audio file in memory (less lag, especially when the disk is busy).
+
+=item B<-f> B<--wave-file> I<file>
+
+Name of the file to play when the bell is rung.  The file must be a PCM encoded
+wave file.
+
+=back
+
+=head2 Options to produce a beep
+
+=over
+
+=item B<-i,> B<--sine>
+
+Generate a sine wave beep.
+
+=item B<-C,> B<--complex>
+
+Generate a more complex waveform beep, with a few higher harmonics.
+
+The result is a nice compromise between the too-piercing sine wave and the
+too-harsh square wave.
+
+=item B<-q,> B<--square>
+
+Generate a square wave beep.
+
+=back
+
+The default values of the following three options are from the bell
+parameters of the server.  (These can be set via xset(1) for instance).
+
+These options are only read on startup, and not every time the bell is
+played, so if you change your bell parameters, you should restart nxbelld
+for the change to take effect.
+
+=over
+
+=item B<-d,> B<--duration>
+
+Duration of the beep in milliseconds.
+
+=item B<-F,> B<--frequency>
+
+Frequency of the beep in hertz.
+
+=item B<-v,> B<--volume>
+
+Volume of the beep (0 -- 100).
+
+=back
+
+=head2 Options to execute an external command
+
+=over
+
+=item B<-e,> B<--command> I<cmd>
+
+Command to execute when the bell is rung.
+
+=back
+
+=head1 COMPATIBILITY WITH GAUTAM IYER'S XBELLD
+
+B<nxbelld> should mostly be backwards compatible with xbelld, with the only
+exception being the B<-e> (B<--command>) option.  In Gautam Iyer's xbelld,
+it has to be the last option, and all following command line arguments are
+considered to be the external command to execute once the bell is rung.
+
+B<nxbelld> accepts a single string argument for the B<--command> option, and
+doesn't impose a limitation on where it has to be on the command line.
+This means that if the external command consists of several
+whitespace-separated words, it has to be quoted and properly escaped.
+
+=head1 BUGS
+
+When using soundio, the beeps are slightly shorter than the specified beep
+duration.  Beeps of 120 ms or shorter don't get played at all.  This can be
+worked around simply by specifying a longer duration using the B<--duration>
+option.
+
+=head1 SEE ALSO
+
+Project site: L<https://github.com/dusxmt/nxbelld>
+
+Project site of the original xbelld: L<https://gitlab.com/gi1242/xbelld>
+
+=head1 AUTHORS
+
+Gautam Iyer L<E<lt>gi1242@users.sourceforge.netE<gt>|mailto:gi1242@users.sourceforge.net>
+
+Marek Benc L<E<lt>dusxmt@gmx.comE<gt>|mailto:dusxmt@gmx.com>

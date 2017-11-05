@@ -52,7 +52,7 @@ Dependencies:
         autoconf   >= 2.69
         automake   >= 1.11.6
 
-    Required for "make dist" from a git tree:
+    Required for "make dist" from a git tree and for updating the man page:
         perl
 
 
