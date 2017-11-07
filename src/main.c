@@ -358,35 +358,33 @@ beep_descriptor_t *prepare_beep (prog_args_t *args)
 
 static void
 bell_daemon (Display *display, int event_code, beep_descriptor_t *beep,
-             unsigned int throttle)
+             unsigned int suppress_interval)
 {
   XkbEvent           event;
   struct timeval     now;
-  struct timeval     last_bell = {0,0};
-  unsigned long      time_since_last_bell = 0;
+  struct timeval     last_bell;
+  unsigned long      ms_since_last_bell;
 
+  gettimeofday (&last_bell, NULL);
   while (true)
     {
       XNextEvent (display, &event.core);
       if (event.type == event_code)
         {
-          if (throttle > 0)
+          if (suppress_interval > 0)
             {
-              do
+              gettimeofday (&now, NULL);
+              ms_since_last_bell = (1000 * (now.tv_sec - last_bell.tv_sec))
+                                 + ((now.tv_usec - last_bell.tv_usec) / 1000);
+
+              if (ms_since_last_bell > suppress_interval)
                 {
-                  gettimeofday (&now, NULL);
-                  time_since_last_bell = 1000 * (now.tv_sec - last_bell.tv_sec)
-                                         + ((now.tv_usec - last_bell.tv_usec)
-                                          / 1000);
+                  if (! perform_beep (beep))
+                    fprintf (stderr, "%s: Warning: Performing a beep failed.\n",
+                             progname);
+
+                  gettimeofday (&last_bell, NULL);
                 }
-              while (last_bell.tv_sec != 0
-                     && time_since_last_bell <= throttle);
-
-              if (! perform_beep (beep))
-                fprintf (stderr, "%s: Warning: Performing a beep failed.\n",
-                         progname);
-
-              last_bell = now;
             }
           else
             {
