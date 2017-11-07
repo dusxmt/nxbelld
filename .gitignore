@@ -1,6 +1,7 @@
 # Ignore built stuff.
 *.o
 *.a
+*.1
 nxbelld
 .deps
 .libs
