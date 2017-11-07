@@ -1,3 +1,18 @@
+nxbelld 0.1.2:
+
+    Released on November 7th, 2017, this release includes the following
+    improvements:
+
+        - The throttle option was fixed, previously it would only cause a
+          delay between the beeps, now it keeps the number of generated
+          beeps under control.
+
+        - Switched to a more maintainer-friendly .pod format for the manual
+          page.
+
+        - Added links to repositories in the README file.
+
+
 nxbelld 0.1.1:
 
     Released on May 30th, 2016, this release was made mainly because of the
