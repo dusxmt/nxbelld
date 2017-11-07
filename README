@@ -5,7 +5,7 @@ Summary:
     PC speaker (e.g. the AD1981 chipset in the snd_hda_intel ALSA driver,
     as of 2008-04-06).
 
-    nxbelld performs a given action every time the X bell is rung. The actions
+    nxbelld performs a given action every time the X bell is rung.  The actions
     nxbelld can currently perform include running a specified program, emulating
     the PC speaker beep using your sound card (default), or playing a PCM
     encoded WAVE file.
@@ -27,6 +27,13 @@ Summary:
     terminal program goes crazy), and/or disable the system's audible bell (so
     that you don't get the annoying PC speaker beep in addition to your
     nxbelld action). 
+
+
+    You can get an up-to-date version of nxbelld from the following repository:
+    https://github.com/dusxmt/nxbelld
+
+    nxbelld is a fork of xbelld.  You can find the original project here:
+    https://gitlab.com/gi1242/xbelld
 
 
 Compiling and installing:
@@ -51,8 +58,9 @@ Dependencies:
     Required for bootstrapping from git:
         autoconf   >= 2.69
         automake   >= 1.11.6
+        pod2man
 
-    Required for "make dist" from a git tree and for updating the man page:
+    Required for "make dist" from a git tree:
         perl
 
 
